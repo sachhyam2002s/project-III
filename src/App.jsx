@@ -1,14 +1,25 @@
 import {Routes, Route} from "react-router-dom";
-import { useState } from 'react'
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import Products from "./components/Products";
+import AddProducts from "./components/AddProducts";
+import Cart from "./components/Cart";
+import Checkout from "./components/Checkout";
+import Footer from "./components/Footer";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
+      <Navbar title='New Look'/>
       <Routes>
-        <Route path="" element={<Home/>}/>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/home" element={<Home/>}/>
+        <Route path="/products" element={<Products/>}/>
+        <Route path="/addProducts" element={<AddProducts/>}/>
+        <Route path="/cart" element={<Cart/>}/>
+        <Route path="/checkout" element={<Checkout/>}/>
       </Routes>
+      <Footer />
     </>
   )
 }
