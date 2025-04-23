@@ -1,9 +1,27 @@
 import React from 'react'
 
 function Products() {
+  const products = [
+    {name:"Converse", image:"/photo/converse.jpg", price:"3000"},
+    {name:"Air Jordan", image:"/photo/jordan.jpg"},
+    {name:"Air Jordan", image:"/photo/jordan.jpg"},
+    {name:"Air Jordan", image:"/photo/jordan.jpg"}
+  ]
   return (
-    <div>
-      
+    <div className=''>
+      <div className="bg-blue-50 py-12 px-6">
+          <h2 className="text-center font-bold text-4xl text-stone-800 mb-12 underline decoration-red-400 decoration-4 underline-offset-8">Our Products</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          {products.map((product, index) => (
+            <div key={index} className="bg-white p-4 rounded-lg hover:scale-105 transition-transform duration-300 shadow-md text-center">
+                <img src={product.image} alt={product.name} className='w-full h-auto object-cover mb-2 rounded'/>
+                <h2 className='font-bold '>{product.name}</h2>
+                <div className='font-semibold'>Rs. {product.price}</div>
+                <button className='border border-red-700 bg-red-600 text-white rounded-full px-2 font-semibold hover:bg-red-400 transition duration-300 shadow-md'>Add to Cart</button>
+              </div>
+            ))}
+          </div>
+      </div>
     </div>
   )
 }
