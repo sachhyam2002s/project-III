@@ -3,7 +3,7 @@ import {Facebook, Instagram, Twitter, Youtube, Mail, Phone} from "lucide-react";
 
 function Footer() {
   return (
-    <div className="m-auto bg-blue-100 text-lg p-5 ">
+    <div className="m-auto bg-blue-100 text-lg p-3 ">
         <div className="grid">
             <div className="flex flex-col lg:flex-row gap-8 justify-around p-2">
                 <div className="flex flex-col lg:flex-row items-center gap-2 ">

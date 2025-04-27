@@ -1,15 +1,17 @@
 import React from 'react'
+import { useCart } from '../contexts/CartContext'
+
 
 function Products() {
+  const {addToCart} = useCart()
   const products = [
-    {name:"Converse", image:"/photo/converse.jpg", price:"3000"},
-    {name:"Air Jordan", image:"/photo/jordan.jpg"},
-    {name:"Air Jordan", image:"/photo/jordan.jpg"},
-    {name:"Air Jordan", image:"/photo/jordan.jpg"}
+    {id:1, name:"Converse", image:"/photo/converse.jpg", price:"3000"},
+    {id:2, name:"Air Jordan", image:"/photo/jordan.jpg", price:"5000"},
+    {id:3, name:"Air Jordan", image:"/photo/jordan.jpg", price:"3000"},
+    {id:4, name:"Air Jordan", image:"/photo/jordan.jpg", price:"2000"}
   ]
   return (
-    <div className=''>
-      <div className="bg-blue-50 py-12 px-6">
+      <div className="bg-blue-50 py-12 px-6 pt-28">
           <h2 className="text-center font-bold text-4xl text-stone-800 mb-12 underline decoration-red-400 decoration-4 underline-offset-8">Our Products</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {products.map((product, index) => (
@@ -17,12 +19,11 @@ function Products() {
                 <img src={product.image} alt={product.name} className='w-full h-auto object-cover mb-2 rounded'/>
                 <h2 className='font-bold '>{product.name}</h2>
                 <div className='font-semibold'>Rs. {product.price}</div>
-                <button className='border border-red-700 bg-red-600 text-white rounded-full px-2 font-semibold hover:bg-red-400 transition duration-300 shadow-md'>Add to Cart</button>
+                <button onClick={() => addToCart(product)} className='bg-red-500 hover:bg-red-600 font-semibold rounded-full text-white py-1 px-4 transition-all duration-300 shadow-md'>Add to Cart</button>
               </div>
             ))}
           </div>
       </div>
-    </div>
   )
 }
 

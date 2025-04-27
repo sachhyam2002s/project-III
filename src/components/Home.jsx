@@ -12,7 +12,7 @@ function Home() {
   return (
     <>
     
-      <div className="flex flex-col lg:flex-row pt-10 bg-blue-50 p-10 justify-around items-center">
+      <div className="flex flex-col lg:flex-row pt-28 bg-blue-50 p-10 justify-around items-center">
           <div className="max-w-xl space-y-6">
                 <h1 className='text-5xl leading-tight font-bold text-stone-800'>Give Your Look a New Style.</h1>
                 <p className='text-xl font-medium text-stone-700'>Either walk like you're the king or walk like you don't care who the king is.</p>
