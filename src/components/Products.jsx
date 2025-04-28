@@ -11,7 +11,7 @@ function Products() {
     {id:4, name:"Air Jordan", image:"/photo/jordan.jpg", price:"2000"}
   ]
   return (
-      <div className="bg-blue-50 py-12 px-6 pt-28">
+      <div className="bg-blue-50 flex flex-col justify-center items-center min-h-full pb-10 px-6">
           <h2 className="text-center font-bold text-4xl text-stone-800 mb-12 underline decoration-red-400 decoration-4 underline-offset-8">Our Products</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {products.map((product, index) => (

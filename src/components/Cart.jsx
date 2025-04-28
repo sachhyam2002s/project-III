@@ -9,8 +9,8 @@ function Cart() {
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
   return (
-    <div className='pt-28 px-4 bg-blue-50'>
-      <div className='max-w-3xl mx-auto'>
+    <div className='bg-blue-50 flex flex-col justify-center items-center min-h-full px-5'>
+      <div className='max-w-full'>
         <h1 className='text-2xl font-bold text-center mb-4'>SHOPPING CART</h1>
         <div className='overflow-x-auto rounded-lg border border-stone-300'>
         <table className='min-w-full border-collapse'> 

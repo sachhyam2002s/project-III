@@ -11,7 +11,10 @@ import Account from "./components/Account";
 function App() {
   return (
     <>
+    <div className="h-screen flex flex-col">
       <Navbar title='New Look'/>
+      <header className="pt-26 bg-blue-50"/>
+      <main className="flex-1">
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/home" element={<Home/>}/>
@@ -21,7 +24,11 @@ function App() {
         <Route path="/checkout" element={<Checkout/>}/>
         <Route path="/account" element={<Account/>}/>
       </Routes>
-      <Footer />
+      </main>
+      <div className="mt-auto">
+        <Footer />
+      </div>
+    </div>
     </>
   )
 }
