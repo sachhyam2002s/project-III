@@ -3,10 +3,10 @@ import { ArrowRight } from 'lucide-react'
 
 function Home() {
   const products = [
-    {name:"Converse", image:"/photo/converse.jpg"},
-    {name:"Air Jordan", image:"/photo/jordan.jpg"},
-    {name:"Air Jordan", image:"/photo/jordan.jpg"},
-    {name:"Air Jordan", image:"/photo/jordan.jpg"}
+    {name:"Converse", image:"/photo/cream converse.jpg"},
+    {name:"Jordan", image:"/photo/gray jordan.jpg"},
+    {name:"Nike", image:"/photo/nike (5).jpg"},
+    {name:"Dr. Martin", image:"/photo/leather boot.jpg"}
   ]
   const logos = ["converse logo","adidas logo","nike logo","vans logo","caliber logo"]
   return (

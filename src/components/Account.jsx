@@ -8,7 +8,7 @@ function Account() {
   const [showLogin, setShowLogin] = useState(true)
   
   return (
-    <div className="bg-blue-50 flex justify-around items-center min-h-full">
+    <div className="bg-blue-50 flex justify-around items-center min-h-full pb-5">
       <div className='flex flex-col sm:flex-row justify-around items-center p-5'>
         <div className="hidden sm:flex sm:w-1/2 lg:w-1/2">
             <img src="photo/store.png" alt="Store Image" width="100%"/>

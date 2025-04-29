@@ -31,7 +31,7 @@ function Checkout() {
   }
 
   return (
-    <div className="pt-28 pb-8 px-6 bg-blue-50">
+    <div className="bg-blue-50 flex flex-col justify-center items-center min-h-full px-5 pb-10">
       <div className="max-w-5xl mx-auto">
         <h1 className="text-center font-bold text-3xl mb-4">Complete Your Order</h1>
         <div className='border border-blue-300 rounded-2xl p-2 bg-blue-100'>
