@@ -7,6 +7,7 @@ import Cart from "./components/Cart";
 import Checkout from "./components/Checkout";
 import Footer from "./components/Footer";
 import Account from "./components/Account";
+import SearchResult from './components/SearchResult'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/cart" element={<Cart/>}/>
         <Route path="/checkout" element={<Checkout/>}/>
         <Route path="/account" element={<Account/>}/>
+        <Route path="/search" element={<SearchResult/>}/>
       </Routes>
       </main>
       <div className="mt-auto">
