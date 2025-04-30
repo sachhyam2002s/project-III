@@ -13,7 +13,7 @@ function Account() {
         <div className="hidden sm:flex sm:w-1/2 lg:w-1/2">
             <img src="photo/store.png" alt="Store Image" width="100%"/>
         </div>
-        <div className='bg-blue-200 w-90 sm:w-90 lg:w-1/3 p-6 rounded'>
+        <div className='bg-red-100 w-90 sm:w-90 lg:w-1/3 p-6 rounded-xl'>
           {showLogin ? (
               <form className='text-center flex flex-col gap-4'>
                 <h2 className='font-semibold text-xl'>Login</h2>
