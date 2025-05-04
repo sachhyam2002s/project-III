@@ -21,7 +21,9 @@ function SearchResults() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {results.map(product => (
             <div key={product.id} className="border rounded-lg p-4 shadow-sm hover:shadow-md">
-              <img src={product.image} alt={product.name} className='w-full h-50 object-cover mb-2 rounded'/>
+              <div className='aspect-w-1 aspect-h-1'>          
+                  <img src={product.image} alt={product.name} className='w-full h-full object-cover mb-2 rounded'/>
+              </div>
               <h2 className='font-bold '>{product.name}</h2>
               <div className='font-semibold'>Rs. {product.price}</div>
               <div className='text-center'>
