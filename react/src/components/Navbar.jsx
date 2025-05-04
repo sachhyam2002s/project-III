@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import {Search, ShoppingCart, Menu, X, Home, ShoppingBag, Layers, User} from 'lucide-react'
+import {Search, ShoppingCart, Menu, X, Home, ShoppingBag, PackagePlus, User} from 'lucide-react'
 import {useCart} from '../contexts/CartContext'
 import { useSearch} from '../contexts/SearchContext';
 
@@ -42,7 +42,7 @@ function Navbar({title}) {
             <div className='hidden md:flex items-center gap-8 ml-auto pr-2'>
                 <NavLink to="" className={navClass}><Home className='w-5 h-5'/></NavLink>
                 <NavLink to="/products" className={navClass}><ShoppingBag className='w-5 h-5'/></NavLink>
-                {/* <NavLink to="/categories" className={navClass}>Categories</NavLink> */}
+                <NavLink to="/addProducts" className={navClass}><PackagePlus className='w-5 h-5'/></NavLink>
                 <NavLink to="/cart" className={navClass}>
                   <div className='flex items-center relative'>
                     <ShoppingCart className='w-5 h-5'/>
@@ -67,7 +67,7 @@ function Navbar({title}) {
             <div className='md:hidden bg-blue-100 py-1 space-x-5 flex flex-row justify-center items-center '>
                 <NavLink to="/" className={navClass}><Home className='w-5 h-5'/></NavLink>
                 <NavLink to="/products" className={navClass}><ShoppingBag className='w-5 h-5'/></NavLink>
-                {/* <NavLink to="/categories" className={navClass}><Layers className='w-5 h-5'/></NavLink> */}
+                <NavLink to="/addProducts" className={navClass}><PackagePlus className='w-5 h-5'/></NavLink>
                 <div className='relative '>
                   <input 
                   className='border rounded-full p-2 h-7 w-full text-sm outline-none' type="text" 

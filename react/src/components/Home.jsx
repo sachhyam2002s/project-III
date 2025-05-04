@@ -5,7 +5,7 @@ function Home() {
   const products = [
     {name:"Converse", image:"/photo/cream converse.jpg"},
     {name:"Jordan", image:"/photo/gray jordan.jpg"},
-    {name:"Nike", image:"/photo/nike (5).jpg"},
+    {name:"Sport", image:"/photo/stylish sport.jpg"},
     {name:"Dr. Martin", image:"/photo/leather boot.jpg"}
   ]
   const logos = ["converse logo","adidas logo","nike logo","vans logo","caliber logo"]
