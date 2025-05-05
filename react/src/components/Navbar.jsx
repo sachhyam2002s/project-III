@@ -1,18 +1,16 @@
 import React, {useState} from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import {Search, ShoppingCart, Menu, X, Home, ShoppingBag, PackagePlus, User} from 'lucide-react'
+import {Search, ShoppingCart, Menu, X, Home, ShoppingBag, PackagePlus, User, LogOut} from 'lucide-react'
 import {useCart} from '../contexts/CartContext'
-import { useSearch} from '../contexts/SearchContext';
+import {useSearch} from '../contexts/SearchContext'
+import {useUser} from '../contexts/UserContext'
 
 function Navbar({title}) {
-//menu toggle
+  const {user, logout} = useUser()
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen)
-//shows active nav item
   const navClass = ({isActive}) => `hover:text-red-600 ${isActive? "text-red-600" : 'text-gray-700'}`;
-//cart count
   const {cartItems} = useCart()
-//search 
   const {searchQuery, setSearchQuery, handleSearch} = useSearch()
 
   return (
@@ -42,7 +40,9 @@ function Navbar({title}) {
             <div className='hidden md:flex items-center gap-8 ml-auto pr-2'>
                 <NavLink to="" className={navClass}><Home className='w-5 h-5'/></NavLink>
                 <NavLink to="/products" className={navClass}><ShoppingBag className='w-5 h-5'/></NavLink>
-                <NavLink to="/addProducts" className={navClass}><PackagePlus className='w-5 h-5'/></NavLink>
+                {user?.is_admin && (
+                  <NavLink to="/addProducts" className={navClass}><PackagePlus className='w-5 h-5'/></NavLink>
+                )}
                 <NavLink to="/cart" className={navClass}>
                   <div className='flex items-center relative'>
                     <ShoppingCart className='w-5 h-5'/>
@@ -51,7 +51,13 @@ function Navbar({title}) {
                     )}
                   </div>
                 </NavLink>
-                <NavLink to="/account" className={navClass}><User className='w-5 h-5'/></NavLink>
+                {user?.loggedIn ? (
+                <button onClick={logout} className={navClass}>
+                  <LogOut className='w-5 h-5'/>
+                </button>
+                ):(
+                  <NavLink to="/account" className={navClass}><User className='w-5 h-5'/></NavLink>
+                )}
             </div>
 
 {/* toggle menu */}
@@ -65,31 +71,39 @@ function Navbar({title}) {
         {isOpen && (
           <>
             <div className='md:hidden bg-blue-100 py-1 space-x-5 flex flex-row justify-center items-center '>
-                <NavLink to="/" className={navClass}><Home className='w-5 h-5'/></NavLink>
-                <NavLink to="/products" className={navClass}><ShoppingBag className='w-5 h-5'/></NavLink>
+              <NavLink to="/" className={navClass}><Home className='w-5 h-5'/></NavLink>
+              <NavLink to="/products" className={navClass}><ShoppingBag className='w-5 h-5'/></NavLink>
+              {user?.is_admin && (
                 <NavLink to="/addProducts" className={navClass}><PackagePlus className='w-5 h-5'/></NavLink>
-                <div className='relative '>
-                  <input 
-                  className='border rounded-full p-2 h-7 w-full text-sm outline-none' type="text" 
-                  value={searchQuery}
-                  onChange={e => setSearchQuery(e.target.value)}
-                  onKeyDown={e => {
-                    if (e.key === 'Enter'){
-                      handleSearch()
-                    }
-                  }}
-                  placeholder="Search for products.." required />
-                  <Search onClick={handleSearch} className='absolute right-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500 cursor-pointer'/>
+              )}
+              <div className='relative '>
+                <input 
+                className='border rounded-full p-2 h-7 w-full text-sm outline-none' type="text" 
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                onKeyDown={e => {
+                  if (e.key === 'Enter'){
+                    handleSearch()
+                  }
+                }}
+                placeholder="Search for products.." required />
+                <Search onClick={handleSearch} className='absolute right-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500 cursor-pointer'/>
+              </div>
+              <NavLink to="/cart" className={navClass}>
+                <div className='flex items-center relative'>
+                  <ShoppingCart className='w-5 h-5'/>
+                  {cartItems.length > 0 && (
+                    <div className='absolute top-0 right-0 transform translate-x-1/2 bg-red-400 text-white text-xs px-1 rounded-full shadow-md'>{cartItems.length}</div>
+                  )}
                 </div>
-                <NavLink to="/cart" className={navClass}>
-                  <div className='flex items-center relative'>
-                    <ShoppingCart className='w-5 h-5'/>
-                    {cartItems.length > 0 && (
-                      <div className='absolute top-0 right-0 transform translate-x-1/2 bg-red-400 text-white text-xs px-1 rounded-full shadow-md'>{cartItems.length}</div>
-                    )}
-                  </div>
-                </NavLink>
-              <NavLink to="/account" className={navClass}><User className='w-5 h-5'/></NavLink>
+              </NavLink>
+              {user?.loggedIn ? (
+                <button onClick={logout} className={navClass}>
+                  <LogOut className='w-5 h-5'/>
+                </button>
+              ):(
+                <NavLink to="/account" className={navClass}><User className='w-5 h-5'/></NavLink>
+              )}
             </div>
           </>
         )}

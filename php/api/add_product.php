@@ -2,25 +2,31 @@
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-  exit(0);
+    exit(0);
 }
+
 include 'db.php';
 
-$name = $_POST['name'];
-$price = $_POST['price'];
+// Check if form data is available
+if (isset($_POST['name'], $_POST['price'], $_FILES['image'])) {
+    $name = $_POST['name'];
+    $price = $_POST['price'];
+    $image = $_FILES['image']['name'];
+    $target_dir = "uploads/";
 
-if (isset($_FILES['image'])) {
-  $image = $_FILES['image'];
-  $imagePath = 'uploads/' . uniqid() . '_' . basename($image['name']);
-  move_uploaded_file($image['tmp_name'], $imagePath);
-  
-  $stmt = $conn->prepare("INSERT INTO products (name, price, image) VALUES (?, ?, ?)");
-  $stmt->bind_param("sds", $name, $price, $imagePath);
-  $stmt->execute();
-  
-  echo json_encode(["status" => "success"]);
-} else {
-  echo json_encode(["status" => "error", "message" => "No image uploaded"]);
+    // Ensure image is uploaded successfully
+    if (move_uploaded_file($_FILES['image']['tmp_name'], $target_dir . $image)) {
+        $sql = "INSERT INTO products (name, price, image) VALUES ('$name', '$price', '$image')";
+        if ($conn->query($sql)) {
+            // Send back the image path for the frontend
+            echo json_encode(['success' => true, 'image' => $target_dir . $image]);
+        } else {
+            echo json_encode(['success' => false]);
+        }
+    } else {
+        echo json_encode(['success' => false]);
+    }
 }
 ?>

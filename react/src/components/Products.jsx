@@ -1,10 +1,14 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useCart } from '../contexts/CartContext'
+import { useUser } from '../contexts/UserContext'
 import { useProducts } from '../contexts/ProductContext'
 
 function Products() {
   const {addToCart} = useCart()
   const {products} = useProducts()
+  const {user} = useUser()
+  const navigate = useNavigate()
   
   return (
       <div className="bg-blue-50 flex flex-col justify-center items-center min-h-full pb-10 px-6">
@@ -18,7 +22,9 @@ function Products() {
                 <h2 className='font-bold '>{product.name}</h2>
                 <div className='font-semibold'>Rs. {product.price}</div>
                 <div className='text-center mt-2'>
-                  <button onClick={() => addToCart(product)} className='bg-red-500 hover:bg-red-600 font-semibold rounded-full text-white py-1 px-4 transition-all duration-300 shadow-md'>Add to Cart</button>
+                  <button 
+                  onClick={() => addToCart(product)
+                  } className='bg-red-500 hover:bg-red-600 font-semibold rounded-full text-white py-1 px-4 transition-all duration-300 shadow-md'>Add to Cart</button>
                 </div>
               </div>
             ))}
