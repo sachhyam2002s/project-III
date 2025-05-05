@@ -13,7 +13,7 @@ export function ProductProvider({children}){
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get('http://localhost/product-api/get_products.php')
+        const res = await axios.get('http://192.168.1.77/product-api/get_products.php')
         if (Array.isArray(res.data)) {
           setProducts(res.data)
         } else {

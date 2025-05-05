@@ -48,7 +48,7 @@ function Checkout() {
     }
     try {
       const res = await axios.post(
-        'http://localhost/product-api/checkout.php',
+        'http://192.168.1.77/product-api/checkout.php',
         payload,
         { headers: { 'Content-Type': 'application/json' } }
       )

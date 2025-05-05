@@ -11,15 +11,15 @@ import { SearchProvider } from './contexts/SearchContext.jsx';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <UserProvider>
-        <CartProvider>
+      <CartProvider>
+        <UserProvider>
           <ProductProvider>
             <SearchProvider>
               <App />
             </SearchProvider>
           </ProductProvider>
-        </CartProvider>
-      </UserProvider>
+        </UserProvider>
+      </CartProvider>
     </BrowserRouter>
   </StrictMode>,
 )

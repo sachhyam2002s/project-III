@@ -16,7 +16,7 @@ function AddProducts() {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get('http://localhost/product-api/get_products.php');
+      const res = await axios.get('http://192.168.1.77/product-api/get_products.php');
       // Ensure full image URLs with cache-busting
       const updatedProducts = res.data.map((product) => {
         const imageUrl = product.image
@@ -46,7 +46,7 @@ function AddProducts() {
       if (editingId) {
         formData.append('id', editingId);
         await axios.post(
-          'http://localhost/product-api/update_product.php',
+          'http://192.168.1.77/product-api/update_product.php',
           formData,
           { headers: { 'Content-Type': 'multipart/form-data' } }
         );
@@ -54,7 +54,7 @@ function AddProducts() {
         resetForm();
       } else {
         await axios.post(
-          'http://localhost/product-api/add_product.php',
+          'http://192.168.1.77/product-api/add_product.php',
           formData,
           { headers: { 'Content-Type': 'multipart/form-data' } }
         );
@@ -77,7 +77,7 @@ function AddProducts() {
   const handleDelete = async (id) => {
     try {
       const res = await axios.post(
-        'http://localhost/product-api/delete_product.php',
+        'http://192.168.1.77/product-api/delete_product.php',
         { id },
         { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
       );
