@@ -59,7 +59,9 @@ function Cart() {
         </div>
       </div>
       <div className='flex justify-center p-6'>
-        <NavLink to="/checkout" className='bg-red-500 hover:bg-red-600 font-semibold rounded-full text-white py-1 px-4 transition-all duration-300 shadow-md'>Proceed to Checkout</NavLink>
+          <NavLink to="/checkout" onClick={() => {
+          if(!user) return navigate('/account')
+        }} className='bg-red-500 hover:bg-red-600 font-semibold rounded-full text-white py-1 px-4 transition-all duration-300 shadow-md'>Proceed to Checkout</NavLink>
       </div>
     </div>
   )

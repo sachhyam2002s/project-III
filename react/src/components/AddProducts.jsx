@@ -1,57 +1,78 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import { Trash, Edit } from 'lucide-react'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Trash, Edit } from 'lucide-react';
 
 function AddProducts() {
-  const [products, setProducts] = useState([])
-  const [name, setName]       = useState('')
-  const [price, setPrice]     = useState('')
-  const [image, setImage]     = useState(null)
-  const [preview, setPreview] = useState(null)
-  const [editingId, setEditingId] = useState(null)
+  const [products, setProducts] = useState([]);
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [image, setImage] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [editingId, setEditingId] = useState(null);
 
-  useEffect(() => { fetchProducts() }, [])
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   const fetchProducts = async () => {
-    const res = await axios.get('http://localhost/product-api/get_products.php')
-    setProducts(Array.isArray(res.data) ? res.data : [])
-  }
+    try {
+      const res = await axios.get('http://localhost/product-api/get_products.php');
+      // Ensure full image URLs with cache-busting
+      const updatedProducts = res.data.map((product) => {
+        const imageUrl = product.image
+          ? `${product.image}?t=${new Date().getTime()}` // Cache-busting
+          : ''; 
+        return {
+          ...product,
+          image: imageUrl,
+        };
+      });
+      setProducts(updatedProducts);
+    } catch (err) {
+      console.error('Error fetching products:', err);
+    }
+  };
 
   const handleSubmit = async () => {
     if (!name || !price || (!image && editingId === null))
-      return alert('Please fill all fields')
+      return alert('Please fill all fields');
 
-    const formData = new FormData()
-    formData.append('name', name)
-    formData.append('price', price)
-    if (image) formData.append('image', image)
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('price', price);
+    if (image) formData.append('image', image);
 
-    if (editingId) {
-      formData.append('id', editingId)
-      await axios.post(
-        'http://localhost/product-api/update_product.php',
-        formData,
-        { headers: { 'Content-Type': 'multipart/form-data' } }
-      )
-    } else {
-      await axios.post(
-        'http://localhost/product-api/add_product.php',
-        formData,
-        { headers: { 'Content-Type': 'multipart/form-data' } }
-      )
+    try {
+      if (editingId) {
+        formData.append('id', editingId);
+        await axios.post(
+          'http://localhost/product-api/update_product.php',
+          formData,
+          { headers: { 'Content-Type': 'multipart/form-data' } }
+        );
+        fetchProducts(); // Fetch updated products
+        resetForm();
+      } else {
+        await axios.post(
+          'http://localhost/product-api/add_product.php',
+          formData,
+          { headers: { 'Content-Type': 'multipart/form-data' } }
+        );
+        fetchProducts(); // Fetch updated products
+        resetForm();
+      }
+    } catch (err) {
+      console.error('Error submitting product:', err);
     }
-
-    resetForm()
-    fetchProducts()
-  }
+  };
 
   const handleEdit = (product) => {
-    setEditingId(product.id)
-    setName(product.name)
-    setPrice(product.price)
-    setPreview(product.image)
-    setImage(null) 
-  }
+    setEditingId(product.id);
+    setName(product.name);
+    setPrice(product.price);
+    setPreview(product.image);
+    setImage(null);
+  };
 
   const handleDelete = async (id) => {
     try {
@@ -69,25 +90,25 @@ function AddProducts() {
       console.error('Delete error:', err);
       alert('Error deleting product');
     }
-  }
+  };
 
-  const handleImageChange = e => {
-    const file = e.target.files[0]
-    setImage(file)
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
     if (file) {
-      const reader = new FileReader()
-      reader.onload = () => setPreview(reader.result)
-      reader.readAsDataURL(file)
+      const reader = new FileReader();
+      reader.onload = () => setPreview(reader.result);
+      reader.readAsDataURL(file);
     }
-  }
+  };
 
   const resetForm = () => {
-    setEditingId(null)
-    setName('')
-    setPrice('')
-    setImage(null)
-    setPreview(null)
-  }
+    setEditingId(null);
+    setName('');
+    setPrice('');
+    setImage(null);
+    setPreview(null);
+  };
 
   return (
     <div className='bg-blue-50 min-h-screen py-4 px-4 sm:px-6 lg:px-8'>
@@ -97,17 +118,22 @@ function AddProducts() {
         </h2>
         <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
           <input
-            type='text' placeholder='Name'
-            value={name} onChange={e => setName(e.target.value)}
+            type='text'
+            placeholder='Name'
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             className='border rounded px-3 py-2'
           />
           <input
-            type='number' placeholder='Price'
-            value={price} onChange={e => setPrice(e.target.value)}
+            type='number'
+            placeholder='Price'
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
             className='border rounded px-3 py-2'
           />
           <input
-            type='file' accept='image/*'
+            type='file'
+            accept='image/*'
             onChange={handleImageChange}
             className='sm:col-span-2 border rounded px-3 py-2'
           />
@@ -125,7 +151,7 @@ function AddProducts() {
             onClick={handleSubmit}
             className='bg-blue-500 text-white px-6 py-2 rounded-full'
           >
-            {editingId ? 'Update' : 'Add'}
+            {editingId ? 'Update' : 'Add Product'}
           </button>
           {editingId && (
             <button
@@ -150,27 +176,31 @@ function AddProducts() {
             </tr>
           </thead>
           <tbody>
-            {products.map(prod => (
+            {products.map((prod) => (
               <tr key={prod.id} className='border-b hover:bg-blue-50'>
                 <td className='px-4 py-3'>
-                  <img src={prod.image} alt='' className='w-14 h-14 rounded-full mx-auto' />
+                  <img
+                    src={prod.image}
+                    alt={prod.name}
+                    className='w-14 h-14 rounded-full mx-auto'
+                  />
                 </td>
                 <td>{prod.name}</td>
                 <td>Rs. {prod.price}</td>
                 <td className='px-4 py-3'>
                   <div className='flex justify-center gap-4 items-center'>
-                  <button
-                    onClick={() => handleEdit(prod)}
-                    className='text-blue-600 hover:underline flex items-center gap-1'
-                  >
-                    <Edit className='w-4 h-4' /> Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(prod.id)}
-                    className='text-red-600 hover:underline flex items-center gap-1'
-                  >
-                    <Trash className='w-4 h-4' /> Delete
-                  </button>
+                    <button
+                      onClick={() => handleEdit(prod)}
+                      className='text-blue-600 hover:underline flex items-center gap-1'
+                    >
+                      <Edit className='w-4 h-4' /> Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(prod.id)}
+                      className='text-red-600 hover:underline flex items-center gap-1'
+                    >
+                      <Trash className='w-4 h-4' /> Delete
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -186,7 +216,7 @@ function AddProducts() {
         </table>
       </div>
     </div>
-  )
+  );
 }
 
-export default AddProducts
+export default AddProducts;

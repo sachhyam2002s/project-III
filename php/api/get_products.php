@@ -2,17 +2,30 @@
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-  exit(0);
+    exit(0);
 }
+
 include 'db.php';
 
-$result = $conn->query("SELECT * FROM products ORDER BY id DESC");
+// Fetch all products
+$sql = "SELECT id, name, price, image FROM products";
+$result = $conn->query($sql);
+
 $products = [];
 
-while ($row = $result->fetch_assoc()) {
-  $row['image'] = 'http://localhost/product-api/uploads/' . basename($row['image']);
-  $products[] = $row;
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        // Build full URL for the image
+        $image_url = 'http://localhost/product-api/uploads/' . $row['image'];
+        $products[] = [
+            'id' => $row['id'],
+            'name' => $row['name'],
+            'price' => $row['price'],
+            'image' => $image_url, // Ensure this is a full URL
+        ];
+    }
 }
 
 echo json_encode($products);
