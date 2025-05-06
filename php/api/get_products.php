@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 include 'db.php';
 
 // Fetch all products
-$sql = "SELECT id, name, price, image FROM products";
+$sql = "SELECT id, name, brand, price, image FROM products";
 $result = $conn->query($sql);
 
 $products = [];
@@ -18,12 +18,13 @@ $products = [];
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         // Build full URL for the image
-        $image_url = 'http://localhost/product-api/uploads/' . $row['image'];
+        $image_url = 'http://192.168.1.77/product-api/uploads/' . $row['image'];
         $products[] = [
             'id' => $row['id'],
             'name' => $row['name'],
+            'brand' => $row['brand'],
             'price' => $row['price'],
-            'image' => $image_url, // Ensure this is a full URL
+            'image' => $image_url,
         ];
     }
 }

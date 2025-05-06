@@ -10,26 +10,31 @@ export function useProducts() {
 export function ProductProvider({children}){
   const [products, setProducts] = useState([])
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await axios.get('http://192.168.1.77/product-api/get_products.php')
-        if (Array.isArray(res.data)) {
-          setProducts(res.data)
-        } else {
-          console.error('Unexpected products response:', res.data)
-          setProducts([])
-        }
-      } catch (err) {
-        console.error('Failed to load products:', err)
-        setProducts([])
+  const fetchProducts = async () => {
+    try {
+      const res = await axios.get('http://192.168.1.77/product-api/get_products.php');
+      if (Array.isArray(res.data)) {
+        const updated = res.data.map((product) => ({
+          ...product,
+          image: product.image ? `${product.image}?t=${Date.now()}` : '',
+        }));
+        setProducts(updated);
+      } else {
+        console.error('Unexpected products response:', res.data);
+        setProducts([]);
       }
+    } catch (err) {
+      console.error('Failed to load products:', err);
+      setProducts([]);
     }
+  };
 
-    fetchProducts()
-  }, [])
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
   return(
-    <ProductContext.Provider value= {{products, setProducts}}>
+    <ProductContext.Provider value= {{products, setProducts, fetchProducts}}>
       {children}
     </ProductContext.Provider>
   )

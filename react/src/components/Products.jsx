@@ -16,10 +16,11 @@ function Products() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {products.map((product) => (
             <div key={product.id} className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md">
-                <div className='aspect-w-1 aspect-h-1'>          
-                  <img src={product.image} alt={product.name} className='w-full h-full object-cover mb-2 rounded'/>
+                <div className='w-full h-35 overflow-hidden mb-2 rounded'>          
+                  <img src={product.image} alt={product.name} className='w-full h-full object-cover'/>
                 </div>
                 <h2 className='font-bold '>{product.name}</h2>
+                <p className="text-sm text-stone-500 italic">Brand: {product.brand}</p>
                 <div className='font-semibold'>Rs. {product.price}</div>
                 <div className='text-center mt-2'>
                   <button 

@@ -7,6 +7,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 include 'db.php';
 
+if (!isset($_POST['id'])) {
+  echo json_encode(['success' => false, 'error' => 'No ID provided']);
+  exit;
+}
+
 $id = intval($_POST['id']);
 $stmt = $conn->prepare("DELETE FROM products WHERE id = ?");
 $stmt->bind_param("i", $id);

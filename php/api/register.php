@@ -29,7 +29,7 @@ if ($stmt->num_rows > 0) {
   exit;
 }
 
-// Hash password
+// Hashing password (bcrypt)
 $hash = password_hash($password, PASSWORD_BCRYPT);
 
 // Insert new user

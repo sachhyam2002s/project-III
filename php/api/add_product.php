@@ -10,15 +10,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 include 'db.php';
 
 // Check if form data is available
-if (isset($_POST['name'], $_POST['price'], $_FILES['image'])) {
+if (isset($_POST['name'], $_POST['brand'], $_POST['price'], $_FILES['image'])) {
     $name = $_POST['name'];
+    $brand = $_POST['brand'];
     $price = $_POST['price'];
     $image = $_FILES['image']['name'];
     $target_dir = "uploads/";
 
     // Ensure image is uploaded successfully
     if (move_uploaded_file($_FILES['image']['tmp_name'], $target_dir . $image)) {
-        $sql = "INSERT INTO products (name, price, image) VALUES ('$name', '$price', '$image')";
+        $sql = "INSERT INTO products (name, brand, price, image) VALUES ('$name', '$brand', '$price', '$image')";
         if ($conn->query($sql)) {
             // Send back the image path for the frontend
             echo json_encode(['success' => true, 'image' => $target_dir . $image]);

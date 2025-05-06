@@ -5,6 +5,7 @@ import { Trash, Edit } from 'lucide-react';
 function AddProducts() {
   const [products, setProducts] = useState([]);
   const [name, setName] = useState('');
+  const [brand, setBrand] = useState('');
   const [price, setPrice] = useState('');
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -34,11 +35,12 @@ function AddProducts() {
   };
 
   const handleSubmit = async () => {
-    if (!name || !price || (!image && editingId === null))
+    if (!name || !brand || !price || (!image && editingId === null))
       return alert('Please fill all fields');
 
     const formData = new FormData();
     formData.append('name', name);
+    formData.append('brand', brand);
     formData.append('price', price);
     if (image) formData.append('image', image);
 
@@ -69,6 +71,7 @@ function AddProducts() {
   const handleEdit = (product) => {
     setEditingId(product.id);
     setName(product.name);
+    setBrand(product.brand || '');
     setPrice(product.price);
     setPreview(product.image);
     setImage(null);
@@ -105,6 +108,7 @@ function AddProducts() {
   const resetForm = () => {
     setEditingId(null);
     setName('');
+    setBrand('');
     setPrice('');
     setImage(null);
     setPreview(null);
@@ -122,6 +126,13 @@ function AddProducts() {
             placeholder='Name'
             value={name}
             onChange={(e) => setName(e.target.value)}
+            className='border rounded px-3 py-2'
+          />
+          <input
+            type='text'
+            placeholder='Brand'
+            value={brand}
+            onChange={(e) => setBrand(e.target.value)}
             className='border rounded px-3 py-2'
           />
           <input
@@ -165,12 +176,13 @@ function AddProducts() {
         </div>
       </div>
 
-      <div className='overflow-x-auto mt-10'>
+      <div className=' mt-10'>
         <table className='min-w-full text-center bg-white shadow-md rounded-xl'>
           <thead className='bg-stone-200'>
             <tr>
               <th className='px-4 py-3'>Image</th>
               <th>Name</th>
+              <th>Brand</th>
               <th>Price</th>
               <th>Action</th>
             </tr>
@@ -186,6 +198,7 @@ function AddProducts() {
                   />
                 </td>
                 <td>{prod.name}</td>
+                <td>{prod.brand}</td>
                 <td>Rs. {prod.price}</td>
                 <td className='px-4 py-3'>
                   <div className='flex justify-center gap-4 items-center'>

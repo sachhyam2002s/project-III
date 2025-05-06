@@ -35,7 +35,7 @@ function Account() {
     <div className="bg-blue-50 flex justify-around items-center min-h-full pb-5">
       <div className='flex flex-col sm:flex-row justify-around items-center p-5'>
         <div className="hidden sm:block sm:w-1/3">
-            <img src="photo/store.png" alt="Store Image" width="100%" className='object-cover h-full w-full'/>
+            <img src="logo/store.png" alt="Store Image" width="100%" className='object-cover h-full w-full'/>
         </div>
         <div className='bg-red-100 w-90 sm:w-1/2 lg:w-1/3 p-6 rounded-xl'>
           {showLogin ? (
