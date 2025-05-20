@@ -12,7 +12,7 @@ export const SearchProvider = ({children}) => {
     
     const navigate = useNavigate()
 
-    //Content -based filtering (Search algorithm)
+    //Content-based filtering (Search algorithm)
     const getSimilarScore = (product, query) => {
         const combined = `${product.name} ${product.brand}`.toLowerCase()
         const terms = query.toLowerCase().split(' ').filter(t => t)

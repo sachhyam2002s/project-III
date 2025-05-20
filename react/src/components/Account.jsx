@@ -49,7 +49,7 @@ function Account() {
                   <Lock className='w-5 h-5'/>
                   <input type="password" placeholder='Password' value={password} onChange={e => setPassword(e.target.value)} className='outline-none' required/>
                 </div>
-                <NavLink to="" className='text-gray-600 text-sm hover:text-blue-600 hover:underline'>Forgot Password?</NavLink>
+                <NavLink to="/forgotPassword" className='text-gray-600 text-sm hover:text-blue-600 hover:underline'>Forgot Password?</NavLink>
                 <button type='button' onClick={handleLogin} className='bg-red-500 text-white px-2 rounded-full'>
                   Login
                 </button>

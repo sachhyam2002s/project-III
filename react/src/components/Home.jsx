@@ -10,7 +10,7 @@ function Home() {
     const fetchRecommendations = async () => {
       try {
         if (user?.id) {
-          const res = await axios.get(`http://192.168.1.77/product-api/kmeans_recommendation.php?user_id=${user.id}`);
+          const res = await axios.get(`http://192.168.1.3/product-api/kmeans_recommendation.php?user_id=${user.id}`);
           setRecommended(res.data);
         }
       } catch (error) {
@@ -48,7 +48,7 @@ function Home() {
             recommended.map((product) => (
               <div key={product.id} className="bg-white p-3 rounded-lg hover:scale-105 transition-transform duration-300 shadow-md text-center">
                 <img
-                  src={`http://192.168.1.77/product-api/${product.image}`}
+                  src={`http://192.168.1.3/product-api/${product.image}`}
                   alt={product.name}
                   className="w-full h-full object-cover mb-2 rounded"
                 />

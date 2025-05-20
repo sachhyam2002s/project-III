@@ -21,7 +21,20 @@ function Products() {
                 </div>
                 <h2 className='font-bold '>{product.name}</h2>
                 <p className="text-sm text-stone-500 italic">Brand: {product.brand}</p>
-                <div className='font-semibold'>Rs. {product.price}</div>
+                <div className='font-semibold'>
+                  {product.discount && product.discount_type ? (
+                    <>
+                      <span className='line-through text-stone-500'>Rs. {product.price}</span>{' '}
+                      <span className='text-red-600 font-bold'>
+                        Rs. {product.discount_type === 'percent'
+                          ? (product.price - (product.price * product.discount) / 100).toFixed(2)
+                          : (product.price - product.discount).toFixed(2)}
+                      </span>
+                    </>
+                  ) : (
+                    <>Rs. {product.price}</>
+                  )}
+                </div>
                 <div className='text-center mt-2'>
                   <button 
                   onClick={() => addToCart(product)

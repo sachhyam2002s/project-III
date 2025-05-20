@@ -10,6 +10,8 @@ function AddProducts() {
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
   const [editingId, setEditingId] = useState(null);
+  const [discount, setDiscount] = useState('');
+  const [discountType, setDiscountType] = useState('percent')
 
   useEffect(() => {
     fetchProducts();
@@ -17,7 +19,7 @@ function AddProducts() {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get('http://192.168.1.77/product-api/get_products.php');
+      const res = await axios.get('http://192.168.1.3/product-api/get_products.php');
       // Ensure full image URLs with cache-busting
       const updatedProducts = res.data.map((product) => {
         const imageUrl = product.image
@@ -42,13 +44,15 @@ function AddProducts() {
     formData.append('name', name);
     formData.append('brand', brand);
     formData.append('price', price);
+    formData.append('discount', discount);
+    formData.append('discount_type', discountType);
     if (image) formData.append('image', image);
 
     try {
       if (editingId) {
         formData.append('id', editingId);
         await axios.post(
-          'http://192.168.1.77/product-api/update_product.php',
+          'http://192.168.1.3/product-api/update_product.php',
           formData,
           { headers: { 'Content-Type': 'multipart/form-data' } }
         );
@@ -56,7 +60,7 @@ function AddProducts() {
         resetForm();
       } else {
         await axios.post(
-          'http://192.168.1.77/product-api/add_product.php',
+          'http://192.168.1.3/product-api/add_product.php',
           formData,
           { headers: { 'Content-Type': 'multipart/form-data' } }
         );
@@ -73,6 +77,8 @@ function AddProducts() {
     setName(product.name);
     setBrand(product.brand || '');
     setPrice(product.price);
+    setDiscount(product.discount || '');
+    setDiscountType(product.discount_type || 'percent');
     setPreview(product.image);
     setImage(null);
   };
@@ -80,7 +86,7 @@ function AddProducts() {
   const handleDelete = async (id) => {
     try {
       const res = await axios.post(
-        'http://192.168.1.77/product-api/delete_product.php',
+        'http://192.168.1.3/product-api/delete_product.php',
         { id },
         { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
       );
@@ -110,6 +116,8 @@ function AddProducts() {
     setName('');
     setBrand('');
     setPrice('');
+    setDiscount('');
+    setDiscountType('percent');
     setImage(null);
     setPreview(null);
   };
@@ -142,6 +150,21 @@ function AddProducts() {
             onChange={(e) => setPrice(e.target.value)}
             className='border rounded px-3 py-2'
           />
+          <input
+            type='number'
+            placeholder='Discount'
+            value={discount}
+            onChange={(e) => setDiscount(e.target.value)}
+            className='border rounded px-3 py-2'
+          />
+          <select
+            value={discountType}
+            onChange={(e) => setDiscountType(e.target.value)}
+            className='border rounded px-3 py-2'
+          >
+            <option value='percent'>%</option>
+            <option value='flat'>Rs</option>
+          </select>
           <input
             type='file'
             accept='image/*'

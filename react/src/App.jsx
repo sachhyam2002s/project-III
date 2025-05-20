@@ -8,6 +8,8 @@ import Checkout from "./components/Checkout";
 import Footer from "./components/Footer";
 import Account from "./components/Account";
 import SearchResult from './components/SearchResult'
+import ForgotPassword from "./components/ForgotPassword";
+import ResetPassword from "./components/ResetPassword";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
         <Route path="/checkout" element={<Checkout/>}/>
         <Route path="/account" element={<Account/>}/>
         <Route path="/search" element={<SearchResult/>}/>
+        <Route path="/forgotPassword" element={<ForgotPassword/>}/>
+        <Route path="/resetPassword" element={<ResetPassword/>}/>
       </Routes>
       </main>
       <div className="mt-auto">
