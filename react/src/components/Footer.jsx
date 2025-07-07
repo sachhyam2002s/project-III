@@ -30,7 +30,7 @@ function Footer() {
             </div>
         </div>
         <hr />
-        <p className="text-center font-semibold pt-2">Copyright 2025 - All rights reserved by Physiotherapy.</p>
+        <p className="text-center font-semibold pt-2">Copyright 2025 - All rights reserved by NewLook.</p>
     </div>
   )
 }
